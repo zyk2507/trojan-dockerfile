@@ -2,8 +2,7 @@
 
 A simple installation script for trojan server.
 
-This script will help you install the trojan binary to `/usr/local/bin`, a template for server configuration to `/usr/local/etc/trojan`, and (if applicable) a systemd service to `/etc/systemd/system`. It only works on `linux-amd64` machines.
-
+This script will help you install the trojan binary to `/usr/local/bin`, a template for server configuration to `/usr/local/etc/trojan`.
 ## Usage
 
 - via `curl`
