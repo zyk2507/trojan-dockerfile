@@ -53,34 +53,6 @@ else
     echo Skipping installing $NAME server config...
 fi
 
-if [[ -d "$SYSTEMDPREFIX" ]]; then
-    echo Installing $NAME systemd service to $SYSTEMDPATH...
-    if ! [[ -f "$SYSTEMDPATH" ]] || prompt "The systemd service already exists in $SYSTEMDPATH, overwrite?"; then
-        cat > "$SYSTEMDPATH" << EOF
-[Unit]
-Description=$NAME
-Documentation=https://trojan-gfw.github.io/$NAME/config https://trojan-gfw.github.io/$NAME/
-After=network.target network-online.target nss-lookup.target mysql.service mariadb.service mysqld.service
-
-[Service]
-Type=simple
-StandardError=journal
-ExecStart="$BINARYPATH" "$CONFIGPATH"
-ExecReload=/bin/kill -HUP \$MAINPID
-LimitNOFILE=51200
-Restart=on-failure
-RestartSec=1s
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-        echo Reloading systemd daemon...
-        systemctl daemon-reload
-    else
-        echo Skipping installing $NAME systemd service...
-    fi
-fi
 
 echo Deleting temp directory $TMPDIR...
 rm -rf "$TMPDIR"
